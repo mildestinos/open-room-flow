@@ -14,13 +14,103 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      bookings: {
+        Row: {
+          created_at: string
+          description: string | null
+          end_time: string
+          id: string
+          organizer_email: string | null
+          organizer_name: string
+          room_id: string
+          start_time: string
+          status: string
+          title: string
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          description?: string | null
+          end_time: string
+          id?: string
+          organizer_email?: string | null
+          organizer_name: string
+          room_id: string
+          start_time: string
+          status?: string
+          title: string
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          description?: string | null
+          end_time?: string
+          id?: string
+          organizer_email?: string | null
+          organizer_name?: string
+          room_id?: string
+          start_time?: string
+          status?: string
+          title?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "bookings_room_id_fkey"
+            columns: ["room_id"]
+            isOneToOne: false
+            referencedRelation: "rooms"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      rooms: {
+        Row: {
+          capacity: number
+          created_at: string
+          description: string | null
+          equipment: string[] | null
+          id: string
+          name: string
+          qr_code_url: string | null
+          updated_at: string
+        }
+        Insert: {
+          capacity?: number
+          created_at?: string
+          description?: string | null
+          equipment?: string[] | null
+          id?: string
+          name: string
+          qr_code_url?: string | null
+          updated_at?: string
+        }
+        Update: {
+          capacity?: number
+          created_at?: string
+          description?: string | null
+          equipment?: string[] | null
+          id?: string
+          name?: string
+          qr_code_url?: string | null
+          updated_at?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
     }
     Functions: {
-      [_ in never]: never
+      check_booking_conflict: {
+        Args: {
+          booking_id_param?: string
+          end_time_param: string
+          room_id_param: string
+          start_time_param: string
+        }
+        Returns: boolean
+      }
     }
     Enums: {
       [_ in never]: never
